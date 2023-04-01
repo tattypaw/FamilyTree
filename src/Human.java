@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Objects;
 
 public class Human {
-    String name;
-    Human mother;
-    Human father;
-    List<Human> children;
-    Gender sex;
-    LocalDate birthday;
-    LocalDate deathDate;
+    private String name;
+    private Human mother;
+    private Human father;
+    private List<Human> children;
+    private Gender sex;
+    private LocalDate birthday;
+    private LocalDate deathDate;
 
     public Human(String name, Human mother, Human father,
                  Gender sex, LocalDate birthday, LocalDate deathDate) {
@@ -26,6 +26,7 @@ public class Human {
     public Human(String name, Gender sex) {
         this.name = name;
         this.sex = sex;
+        children = new ArrayList<>();
     }
 
     public String getName() {
@@ -84,7 +85,7 @@ public class Human {
         this.deathDate = deathDate;
     }
 
-    public String getInfo() {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("имя: ");
         sb.append(name);
@@ -119,16 +120,27 @@ public class Human {
 
     public String getChildrenInfo() {
         StringBuilder sb = new StringBuilder();
+        sb.append("дети: ");
+        if (children != null) {
+            if (children.isEmpty()) {
+                sb.append("детей нет ");
+                return sb.toString();
+            }
 
-        for (Human item: children){
-            sb.append(item.getName());
-            sb.append("\n");
+            for (Human item : children) {
+                sb.append(item.getName());
+                sb.append(", ");
+            }
+
+        } else {
+            sb.append("детей нет ");
         }
+
         return sb.toString();
     }
 
     public void addChild(Human child) {
-        if (!children.contains(child)){
+        if (!children.contains(child)) {
             children.add(child);
         }
     }
@@ -138,14 +150,15 @@ public class Human {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Human human = (Human) o;
-        return Objects.equals(name, human.name) && sex == human.sex && Objects.equals(birthday, human.birthday);
+        return Objects.equals(name, human.name) && sex == human.sex;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sex, birthday);
+        return Objects.hash(name, sex);
     }
 }
+
 enum Gender {
-    male,female
+    male, female
 }

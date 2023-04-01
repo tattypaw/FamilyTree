@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FamilyTree {
-    List<Human> humanList;
+    private List<Human> humanList;
 
     public FamilyTree(List<Human> humanList) {
         this.humanList = humanList;
@@ -12,15 +12,24 @@ public class FamilyTree {
         this(new ArrayList<>());
     }
 
-
-    public void getInfo() {
-        for (Human item : humanList) {
-            item.getInfo();
-        }
-
+    public List<Human> getHumanList() {
+        return humanList;
     }
 
-    public void add(Human human) {
+    public void setHumanList(List<Human> humanList) {
+        this.humanList = humanList;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Human item : humanList) {
+            sb.append(item.toString());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void addHuman(Human human) {
         if (!humanList.contains(human)) {
             humanList.add(human);
             if (human.getFather() != null) {
