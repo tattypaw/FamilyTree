@@ -12,8 +12,32 @@ public class FamilyTree {
         this(new ArrayList<>());
     }
 
-    @Override
-    public String toString() {
-        return "" + humanList;
+
+    public void getInfo() {
+        for (Human item : humanList) {
+            item.getInfo();
+        }
+
+    }
+
+    public void add(Human human) {
+        if (!humanList.contains(human)) {
+            humanList.add(human);
+            if (human.getFather() != null) {
+                human.getFather().addChild(human);
+            }
+            if (human.getMother() != null){
+                human.getMother().addChild(human);
+            }
+        }
+    }
+
+    public Human getByName (String name){
+        for (Human human: humanList){
+            if (human.getName().equals(name)){
+                return human;
+            }
+        }
+        return null;
     }
 }

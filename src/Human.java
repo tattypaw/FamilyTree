@@ -1,77 +1,151 @@
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Human {
+    String name;
     Human mother;
     Human father;
     List<Human> children;
-    String name;
-    String lastName;
-    Sex sex;
-    Date birthday;
+    Gender sex;
+    LocalDate birthday;
+    LocalDate deathDate;
 
-    public Human(Human mother, Human father, List<Human> children,
-                 String name, String lastName, Sex sex, Date birthday) {
+    public Human(String name, Human mother, Human father,
+                 Gender sex, LocalDate birthday, LocalDate deathDate) {
+        this.name = name;
         this.mother = mother;
         this.father = father;
-        this.children = children;
-        this.name = name;
-        this.lastName = lastName;
+        children = new ArrayList<>();
         this.sex = sex;
         this.birthday = birthday;
+        this.deathDate = deathDate;
     }
 
-    public Human(String name, String lastName, Sex sex) {
-        this.mother = null;
-        this.father = null;
-        this.children = null;
-        this.birthday = null;
+    public Human(String name, Gender sex) {
         this.name = name;
-        this.lastName = lastName;
         this.sex = sex;
-
-    }
-
-    public Human getMother() {
-        return mother;
-    }
-
-    public Human getFather() {
-        return father;
-    }
-
-    public List<Human> getChildren() {
-        return children;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getLastName() {
-        return lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Sex getSex() {
+    public Human getMother() {
+        return mother;
+    }
+
+    public void setMother(Human mother) {
+        this.mother = mother;
+    }
+
+    public Human getFather() {
+        return father;
+    }
+
+    public void setFather(Human father) {
+        this.father = father;
+    }
+
+    public List<Human> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<Human> children) {
+        this.children = children;
+    }
+
+    public Gender getSex() {
         return sex;
     }
 
-    public Date getBirthday() {
+    public void setSex(Gender sex) {
+        this.sex = sex;
+    }
+
+    public LocalDate getBirthday() {
         return birthday;
     }
 
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public LocalDate getDeathDate() {
+        return deathDate;
+    }
+
+    public void setDeathDate(LocalDate deathDate) {
+        this.deathDate = deathDate;
+    }
+
+    public String getInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("имя: ");
+        sb.append(name);
+        sb.append(", ");
+        sb.append(getMotherInfo());
+        sb.append(", ");
+        sb.append(getFatherInfo());
+        sb.append(", ");
+        sb.append(getChildrenInfo());
+        return sb.toString();
+    }
+
+    public String getMotherInfo() {
+        String res = "мать: ";
+        if (mother != null) {
+            res += mother.getName();
+        } else {
+            res += "неизвестна";
+        }
+        return res;
+    }
+
+    public String getFatherInfo() {
+        String res = "отец: ";
+        if (father != null) {
+            res += father.getName();
+        } else {
+            res += "неизвестен";
+        }
+        return res;
+    }
+
+    public String getChildrenInfo() {
+        StringBuilder sb = new StringBuilder();
+
+        for (Human item: children){
+            sb.append(item.getName());
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    public void addChild(Human child) {
+        if (!children.contains(child)){
+            children.add(child);
+        }
+    }
+
     @Override
-    public String toString() {
-        return "\nHuman : " +
-                " mother = " + mother +
-                " father = " + father +
-                " children = " + children +
-                " name = " + name +
-                " lastName = " + lastName +
-                " sex = " + sex +
-                " birthday = " + birthday ;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return Objects.equals(name, human.name) && sex == human.sex && Objects.equals(birthday, human.birthday);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, sex, birthday);
     }
 }
-enum Sex {
+enum Gender {
     male,female
 }
