@@ -1,4 +1,4 @@
 public interface InOut {
-    void save();
-    void load();
+    void save(FamilyTree f);
+    void load(FamilyTree f);
 }

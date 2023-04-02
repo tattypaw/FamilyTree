@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Human {
+public class Human implements Serializable {
     private String name;
     private Human mother;
     private Human father;
@@ -33,52 +34,52 @@ public class Human {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Human getMother() {
         return mother;
-    }
-
-    public void setMother(Human mother) {
-        this.mother = mother;
     }
 
     public Human getFather() {
         return father;
     }
 
-    public void setFather(Human father) {
-        this.father = father;
-    }
-
     public List<Human> getChildren() {
         return children;
-    }
-
-    public void setChildren(List<Human> children) {
-        this.children = children;
     }
 
     public Gender getSex() {
         return sex;
     }
 
-    public void setSex(Gender sex) {
-        this.sex = sex;
-    }
-
     public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
     public LocalDate getDeathDate() {
         return deathDate;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMother(Human mother) {
+        this.mother = mother;
+    }
+
+    public void setFather(Human father) {
+        this.father = father;
+    }
+
+    public void setChildren(List<Human> children) {
+        this.children = children;
+    }
+
+    public void setSex(Gender sex) {
+        this.sex = sex;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public void setDeathDate(LocalDate deathDate) {
